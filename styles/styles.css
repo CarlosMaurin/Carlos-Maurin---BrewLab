@@ -262,6 +262,22 @@ body{
 
 
 
+/* -----------BOTONES CALCULAR Y LIMPIAR--------------------- */
+
+.calcular{
+    background-color: #14213D;
+	font-size: 0.8rem;
+}
+.limpiar{
+    background-color: #14213D;
+	font-size: 0.8rem;
+}
+
+
+
+
+
+
 
 
 
