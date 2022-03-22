@@ -202,7 +202,7 @@ function agregarGranos(){
                 if(color.colorId == e.target.id){
                     return{
                         colorId: e.target.id,
-                        color: srmContainerAdicional.value,
+                        color: parseInt(srmContainerAdicional.value),
                     }
                 }else{
                     return color;
@@ -211,7 +211,7 @@ function agregarGranos(){
         }else{
             arrayColor.push({
                 colorId: e.target.id,
-                color: srmContainerAdicional.value,
+                color: parseInt(srmContainerAdicional.value),
             })
         }
     }))
@@ -274,6 +274,35 @@ function sumarkilos(){
 
     })    
 }
+
+
+//------CODIGO PARA CAPTURAR DATOS DE EXTRACTO DE PRIMERA LINEA EN ARRAY----///
+
+//extractoListado
+let arrayExtracto = [];
+const fermExtracto = document.querySelector(".ferm");
+
+fermExtracto.addEventListener("change", (e)=>{
+    let existe = fermentables.some(extrac =>extrac.extId === e.target.id);
+    if(existe){
+        arrayExtracto = arrayExtracto.map(extrac =>{
+            if(extrac.extId == e.target.id){
+                return {
+                    extId: e.target.id,
+                    extracto: parseInt(extractoListado.value),
+                }
+            }else{
+                return extrac;
+            }
+        })
+
+    }else{
+        arrayExtracto.push({
+            extId: e.target.id,
+            extracto: parseInt(extractoListado.value),
+        })
+    }
+})
 
 
 
@@ -529,12 +558,42 @@ listadoLevadura.addEventListener("change", (e)=>{
     }
 })
 
+////////////////////////////////////////////////////////////////////
+/////////-----------------CALCULOS DE DENSIDAD----------------//////
+////////////////////////////////////////////////////////////////////
+
+
+let arrayLibras = [];
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
 ////////////////////////////////////////////////////////////////////
-/////////---CALCULOS DE COLOR PRIMERA LINEA DE FERMENTABLES---//////
+/////////------------------CALCULOS DE COLOR------------------//////
 ////////////////////////////////////////////////////////////////////
+
+//--Genero el array que obtiene los datos del color de la primera línea para posteriormente hacer los calculos---//
 
 let arrayColor = [];
 
@@ -562,6 +621,35 @@ fermColor.addEventListener("change", (e)=>{
 })
 
 
+//---Genero la función que realiza los cálculos. Toma valores de arrayColor y arrayKilos tmb---//
+//--uso el boton CALCULAR INDICADORES para activar la función--//
+
+// let mcuTotal;
+// let srm;
+// let arraySRM = [];
+
+// const calcular = document.querySelector(".calcular");
+// calcular.addEventListener("click", calculoSRM);
+
+
+
+// function calculoSRM(){
+//     for(let i=0; i<arrayKilos.length; i+=1){
+//         arraySRM.push(arrayColor[i].color * arrayKilos[i].valor);
+//         console.log(arraySRM);
+//     }
+//     mcuTotal = ((arraySRM.reduce((prev, curr) => prev + curr)) / batchContainer) * 8.462;
+//     srm = Math.round(1.5 * mcuTotal ** 0.7);
+//     console.log(srm);
+
+
+
+//     for(const libra of arrayKilos){
+//         arrayLibras.push(libra.valor * 0.453592);
+//     }
+
+// }
+
 // let arr1 = [1, 3, 5, 7];
 
 // let arr2 = [2, 4, 6, 8];
@@ -586,6 +674,12 @@ fermColor.addEventListener("change", (e)=>{
 
 
 
+
+
+
+
+
+
 let arrayTiempo;
 
 const tiempo = document.querySelector(".tiempo-container");
@@ -598,67 +692,20 @@ tiempo.addEventListener("change", (e)=>{
 
 
 
-const calcular = document.querySelector(".calcular");
 
-calcular.addEventListener("click", calculoSRM);
+// let gato = [];
+let arr1 = [1, 2, 3, 4, 5];
+let amor = 5;
 
-
-const beer13 = document.createElement("a");
-    
-
-
-
-
-let mcuTotal;
-let srm;
-let arraySRM = [];
-function calculoSRM(){
-    for(let i=0; i<arrayKilos.length; i+=1){
-        arraySRM.push(arrayColor[i].color * arrayKilos[i].valor);
-        console.log(arraySRM);
-    }
-    mcuTotal = ((arraySRM.reduce((prev, curr) => prev + curr)) / batchContainer) * 8.462;
-    srm = Math.round(1.5 * mcuTotal ** 0.7);
-    console.log(srm);
-
-
-
-
-
-    const beer = document.querySelector(".beer");
-    if((srm >= 1) && (srm <=3)){
-        beer.appendChild()
-    }else if((srm >= 4) && (srm <=5)){
-        document.write("<img src='beer-4-5.PNG'/>");
-    }else if((srm >= 6) && (srm <=7)){
-        document.write("<img src='beer-6-7.PNG'/>");
-    }else if((srm >= 8) && (srm <=9)){
-        document.write("<img src='beer-8-9.PNG'/>");
-    }else if((srm >= 10) && (srm <=12)){
-        document.write("<img src='beer-10-12.PNG'/>");
-    }else if((srm >= 13) && (srm <=16)){
-        document.write("<img src='beer-13-16.PNG'/>");
-    }else if((srm >= 17) && (srm <=20)){
-        document.write("<img src='beer-17-20.PNG'/>");
-    }else if((srm >= 21) && (srm <=25)){
-        document.write("<img src='beer-21-25.PNG'/>");
-    }else if((srm >= 26) && (srm <=30)){
-        document.write("<img src='beer-26-30.PNG'/>");
-    }else if((srm >= 31) && (srm <=35)){
-        document.write("<img src='beer-31-35.PNG'/>");
-    }else if((srm >= 36) && (srm <=39)){
-        document.write("<img src='beer-36-39.PNG'/>");
-    }else if((srm >= 40) && (srm <=50)){
-        document.write("<img src='beer-40-50.PNG'/>");
-    }else if(srm > 50){
-        document.write("<img src='beer+50.PNG'/>");
-    }
-
-
-
+function multp (arr){
+    arr * amor;
 }
+let gato = arr1.map(multp);
 
 
+// for(const ure of arr1){
+//     gato.push(ure * amor);
+// }
 
 
 
