@@ -94,7 +94,7 @@
                         </div>
                         <div class="col-3 px-1 text-center">
                             <label for="nombre" class="form-label text-dark fw-bold mb-0">Extracto</label>
-                            <input type="text" class="extracto-container text-center mb-2">
+                            <input type="text" class="extracto-container text-center mb-2" id="extrac1">
                             <div class="extracto-container-adicional">
 
                             </div>
@@ -240,8 +240,13 @@
                 </form>
             </div>
         </section>
-        <section>
-            <button class="calcular">Calcular Indicadores</button>
+        <section class="row mt-4 d-flex justify-content-center">
+            <div class="col-6 d-flex justify-content-center">
+                <button type="button" class="calcular btn text-white fw-bold">Calcular Indicadores</button>
+            </div>
+            <div class="col-6">
+                <button type="button" class="limpiar btn text-white fw-bold d-flex justify-content-center">Limpiar Campos</button>
+            </div>
         </section>
         <section class="beer">
 
