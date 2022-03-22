@@ -1,0 +1,271 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body{
+    background-color: #FCA311;
+    color: white;
+}
+
+
+
+/* ----------------NAVBAR---------------- */
+.navbar{
+    width: 100%;
+    background-color: #14213D;
+    z-index: 2;
+    position: fixed;
+}
+.navbar__logo img{
+    width: 3.8rem;
+    height: 3.3rem;
+}
+.navbar__toggler{
+    border: none;
+    background-color: transparent;
+}
+
+
+/* ----------------FOOTER-------------------- */
+.footer{
+    background-color: #14213D;
+    height: 4rem;
+}
+.footer__logo-redes{
+    width: 1.5rem;    
+}
+
+
+/* ------------MAIN NUEVA RECETA------------ */
+.main-nueva{
+    padding-top: 7rem;
+    width: 100%;
+}
+.main-nueva__receta{
+    width: 85%;
+    border: black solid 0.1rem;
+    background-color: #CCC5B9;
+    border-radius: 0.5rem;
+}
+.main-nueva__granos{
+    width: 85%;
+    border: black solid 0.1rem;
+    background-color: #CCC5B9;
+    border-radius: 0.5rem;
+}
+.main-nueva__btn{
+    background-color: #14213D;
+}
+
+/* .rows{
+	display: flex;
+	margin: auto;
+	margin-top: 2rem;
+	align-items: center;
+	width: 90%;
+	background-color: gray;
+	border: solid black 0.1rem;
+	border-radius: 0.5rem;
+} */
+.listado-ferm{
+	display: flex;
+	margin: auto;
+	width: 90%;
+	border: solid black 0.1rem;
+	background-color: white;
+	border-radius: 0.5rem;
+	height: 2rem;
+    margin-bottom: 0.5rem;
+}
+
+.extracto-container{
+	display: flex;
+	margin: auto;
+	width: 90%;
+	color: black;
+	border: solid black 0.1rem;
+	background-color: white;
+	border-radius: 0.5rem;
+	height: 2rem;
+}
+.srm-container{
+	display: flex;
+	margin: auto;
+	width: 90%;
+	border: solid black 0.1rem;
+	background-color: white;
+	border-radius: 0.5rem;
+	height: 2rem;
+}
+.kilos-container{
+	display: flex;
+	margin: auto;
+	width: 90%;
+	border: solid black 0.1rem;
+	background-color: white;
+	border-radius: 0.5rem;
+	height: 2rem;
+}
+.suma-kilos{
+	display: flex;
+	/* margin: auto; */
+	width: 15%;
+	color: black;
+	border: solid black 0.1rem;
+	background-color: white;
+	border-radius: 0.5rem;
+	height: 2rem;
+    color: black;
+}
+
+
+/* ----------LUPULOS---------------------- */
+
+.main-nueva__lupulos{
+    width: 85%;
+    border: black solid 0.1rem;
+    background-color: #CCC5B9;
+    border-radius: 0.5rem;
+}
+
+.listado-lupulo{
+	display: flex;
+	margin: auto;
+	width: 90%;
+	border: solid black 0.1rem;
+	background-color: white;
+	border-radius: 0.5rem;
+	height: 2rem;
+    margin-bottom: 0.5rem;
+}
+
+.alfa-container{
+	display: flex;
+	margin: auto;
+	width: 90%;
+	color: black;
+	border: solid black 0.1rem;
+	background-color: white;
+	border-radius: 0.5rem;
+	height: 2rem;
+}
+
+.listado-lupulo{
+	display: flex;
+	margin: auto;
+	width: 90%;
+	border: solid black 0.1rem;
+	background-color: white;
+	border-radius: 0.5rem;
+	height: 2rem;
+    margin-bottom: 0.5rem;
+}
+
+.tiempo-container{
+	display: flex;
+	margin: auto;
+	width: 90%;
+	color: black;
+	border: solid black 0.1rem;
+	background-color: white;
+	border-radius: 0.5rem;
+	height: 2rem;
+}
+
+.gramos-container{
+	display: flex;
+	margin: auto;
+	width: 90%;
+	color: black;
+	border: solid black 0.1rem;
+	background-color: white;
+	border-radius: 0.5rem;
+	height: 2rem;
+}
+
+
+.btn-agregar-lupulo{
+    background-color: #14213D;
+}
+
+
+.suma-gramos{
+	display: flex;
+	/* margin: auto; */
+	width: 15%;
+	color: black;
+	border: solid black 0.1rem;
+	background-color: white;
+	border-radius: 0.5rem;
+	height: 2rem;
+    color: black;
+}
+
+/* ----------------LEVADURA--------------------- */
+
+
+.main-nueva__levadura{
+    width: 85%;
+    border: black solid 0.1rem;
+    background-color: #CCC5B9;
+    border-radius: 0.5rem;
+}
+
+
+.listado-levadura{
+    display: flex;
+	margin: auto;
+	width: 90%;
+	color: black;
+	border: solid black 0.1rem;
+	background-color: white;
+	border-radius: 0.5rem;
+	height: 2rem;    
+}
+.levadura-container{
+    display: flex;
+	margin: auto;
+	width: 90%;
+	color: black;
+	border: solid black 0.1rem;
+	background-color: white;
+	border-radius: 0.5rem;
+	height: 2rem;    
+}
+.main-nueva__indicadores{
+    width: 85%;
+    border: black solid 0.1rem;
+    background-color: #14213D;
+    border-radius: 0.5rem;
+}
+
+.indicador{
+    width: 85%;
+    height: 1.5rem;
+    background-color: white;
+    margin: auto;
+    border: solid black 0.1rem;
+    border-radius: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.indicador-color{
+    width: 85%;
+    height: 2.5rem;
+    background-color: white;
+    margin: auto;
+    border: solid black 0.1rem;
+    border-radius: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+
+
+
+
+
+
+
+
+
