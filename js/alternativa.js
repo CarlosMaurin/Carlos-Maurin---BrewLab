@@ -3,7 +3,6 @@ let eficienciaContainer;
 
 
 
-
 //contendor de la cantidad de litros elegida por el usuario
 
 const batch = document.querySelector(".batch");
@@ -125,7 +124,7 @@ function agregarGranos(){
 
     const srmContainer = document.querySelector(".srm-container-adicional");
     const srmContainerAdicional = document.createElement("input");
-    srmContainerAdicional.classList.add("srm-container", "mb-2", "text-center");
+    srmContainerAdicional.classList.add("srm-container", "mb-2", "text-center", "srm-node");
     // srmContainerAdicional.setAttribute("id", `ferm-color-${colorLenght+=1}`);
     srmContainer.appendChild(srmContainerAdicional);
 
@@ -327,7 +326,7 @@ function agregarLupulos(){
 
     const alfaContainerAdicional = document.querySelector(".alfa-container__adicional");
     const alfaContainerAdicionalInput = document.createElement("input");
-    alfaContainerAdicionalInput.classList.add("alfa-container", "mb-2", "text-center");
+    alfaContainerAdicionalInput.classList.add("alfa-container", "mb-2", "text-center", "alfa-node");
     alfaContainerAdicional.appendChild(alfaContainerAdicionalInput);
 
     //---CODIGOS PARA INCOPORAR INPUTS DE TIEMPO---//
@@ -335,7 +334,7 @@ function agregarLupulos(){
     let arrayTiempo = [0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90];
     const tiempoContainerAdicional = document.querySelector(".tiempo-container__adicional");
     const tiempoContainerAdicionalInput = document.createElement("select");
-    tiempoContainerAdicionalInput.classList.add("tiempo-container", "mb-2", "text-center");
+    tiempoContainerAdicionalInput.classList.add("tiempo-container", "mb-2", "text-center", "tiempo-node");
     tiempoContainerAdicional.appendChild(tiempoContainerAdicionalInput);
 
     const optionDefaultTiempo = document.createElement("option");
@@ -374,7 +373,7 @@ function agregarLupulos(){
     })
 
 
-    //----Codigo para capturar los kilos de las lineas de fermentables agregadas con boton----//
+    //----Codigo para capturar los gramos de las lineas de lupulos agregadas con boton----//
 
 
     const gramosContainer = document.querySelectorAll(".gramos-container");
@@ -475,10 +474,10 @@ class Levaduras {
 
 let arrayLevadura = [];
 
-arrayLevadura.push(new Levaduras("US-05", 0.75));
-arrayLevadura.push(new Levaduras("S-04", 0.70));
-arrayLevadura.push(new Levaduras("Windsor", 0.65));
-arrayLevadura.push(new Levaduras("Nottinham", 0.80));
+arrayLevadura.push(new Levaduras("US-05", 0.78));
+arrayLevadura.push(new Levaduras("S-04", 0.75));
+arrayLevadura.push(new Levaduras("Windsor", 0.74));
+arrayLevadura.push(new Levaduras("Nottinham", 0.82));
 
 
 const atenuacion = document.querySelector(".atenuacion");
@@ -493,6 +492,22 @@ listadoLevadura.addEventListener("change", (e)=>{
     }
 })
 
+let levaduraAtenuacion;
+
+listadoLevadura.addEventListener("change", (e)=>{
+    let seleccionar = e.target.value;
+    let seleccionado = arrayLevadura.find(leva => leva.cepa === seleccionar);
+    if(seleccionado == undefined){
+        levaduraAtenuacion = "";
+    }else{
+        levaduraAtenuacion = seleccionado.atenuacion;
+    }
+})
+
+
+
+
+
 ////////////////////////////////////////////////////////////////////
 /////////-----------------CALCULOS DE INDICADORES-------------//////
 ////////////////////////////////////////////////////////////////////
@@ -502,14 +517,30 @@ listadoLevadura.addEventListener("change", (e)=>{
 const calcular = document.querySelector(".calcular");
 calcular.addEventListener("click", calcularIndicadores);
 
-
+let galones;
 let arrayLibras = [];
 let arrayExtracto = [];
 let arrayDensidad = [];
+let arraySrm = [];
+let arrayMcu = [];
+let srm;
+let factorCorreccion = 7.489;
+let correccionDensidad;   
+let arrayOnzas = [];
+let arrayTiempo = [];
+let arrayMinutos = [];
+let arrayAA = [];
+let arrayIbu = [];
+let densidadFinal;
+let abv;
+
 function calcularIndicadores(){
 
+
+    //------CODIGO PARA CALCULAR DENSIDAD INICIAL-------///
+
     for(const kilo of arrayKilos){
-        arrayLibras.push(kilo.valor * 0.453592);
+        arrayLibras.push(kilo.valor / 0.453592);
         console.log(arrayLibras);
     }
     
@@ -523,16 +554,232 @@ function calcularIndicadores(){
     })  
 
     for(let i=0; i<arrayExtracto.length; i+=1){
-        (arrayDensidad.push(arrayLibras[i] * arrayExtracto[i])) * eficiencia;
+        arrayDensidad.push(arrayLibras[i] * arrayExtracto[i] * eficienciaContainer);
+        console.log(arrayDensidad);
     }
-
+    arrayDensidad = arrayDensidad.reduce((prev, curr) => prev + curr);
+    galones = batchContainer * 0.264172;
+    
+    arrayDensidad = (Math.round((arrayDensidad / galones) +1000)) / 1000;
     
 
-    // arrayDensidad.reduce((prev, curr) => prev + curr);
+
+    ///----------------CODIGO PARA CALCULAR COLOR--------------////
+
+
+    arraySrm.push(parseInt(listadoSrm.value));
+    console.log(arraySrm);
+
+
+    const colorNodeList = document.querySelectorAll(".srm-node");
+
+    colorNodeList.forEach(input => {
+        arraySrm.push(parseInt(input.value));
+        console.log(arraySrm);
+    })
+
+    for(i=0; i<arraySrm.length; i+=1){
+        arrayMcu.push(arraySrm[i] * arrayKilos[i].valor);
+        console.log(arrayMcu);
+    }
+    arrayMcu = arrayMcu.reduce((prev, curr) => prev + curr);
+    arrayMcu = (arrayMcu / batchContainer) * 8.462;    
+    
+    srm = Math.round(1.5 * arrayMcu ** 0.7);
+
+    console.log(srm);
+
+
+
+    ////-------------CODIGO PARA CALCULAR IBUs----------------------///
+
+
+    
+    if(arrayDensidad <= 1050){
+        correccionDensidad = 1;
+    }else{
+        correccionDensidad = 1 + (((arrayDensidad - 1050) / 1000) / 0.2);
+    }
+
+
+    for(const gramo of arrayGramos){
+        arrayOnzas.push(gramo.valor * 0.035274);
+        console.log(arrayOnzas);
+    }
+    
+
+    const tiempoContainer = document.querySelector(".tiempo-container");
+    arrayTiempo.push(parseInt(tiempoContainer.value));
+    console.log(arrayTiempo);
+
+    const tiempoNodeList = document.querySelectorAll(".tiempo-node");
+    tiempoNodeList.forEach(input => {
+        arrayTiempo.push(parseInt(input.value));
+        console.log(arrayTiempo)
+    })
+
+    arrayTiempo.forEach(input => {
+        if((input >= 0 ) && (input <=9)){
+            arrayMinutos.push(0.06);
+        }else if((input >= 10 ) && (input <=19)){
+            arrayMinutos.push(0.15);
+        }else if((input >= 20 ) && (input <=29)){
+            arrayMinutos.push(0.19);
+        }else if((input >= 30 ) && (input <=44)){
+            arrayMinutos.push(0.24);
+        }else if((input >= 45 ) && (input <=59)){
+            arrayMinutos.push(0.27);
+        }else if((input >= 60 ) && (input <=74)){
+            arrayMinutos.push(0.30);
+        }else if(input >= 75 ){
+            arrayMinutos.push(0.34);
+        }
+        console.log(arrayMinutos);
+    })
+
+
+    arrayAA.push(parseFloat(alfa.value));
+    const alfaNodeList = document.querySelectorAll(".alfa-node");
+    alfaNodeList.forEach(input => {
+        arrayAA.push(parseFloat(input.value));
+        console.log(arrayAA);
+    })
+
+
+    for(let i=0; i<arrayMinutos.length; i+=1){
+        arrayIbu.push(((arrayOnzas[i] * arrayMinutos[i] * factorCorreccion) / (galones * correccionDensidad)) *100);
+        console.log(arrayIbu);
+    }
+
+    arrayIbu = arrayIbu.reduce((prev, curr) => prev + curr);
+    arrayIbu = arrayIbu.toFixed(1);
+
+    densidadFinal = (1 - levaduraAtenuacion) * (arrayDensidad*1000 - 1000);
+    densidadFinal = densidadFinal / 1000 + 1;
+    densidadFinal = parseFloat(densidadFinal.toFixed(3));
+    console.log(densidadFinal);
+
+    abv = (arrayDensidad - densidadFinal) * 131.25;
+    abvString = abv.toFixed(2);
+    abvString = abvString+"%";
+
+    const indicadorColor = document.querySelector(".indicador-color"); 
+
+    if((srm >= 1) && (srm <=3)){
+        indicadorColor.innerHTML = `<img src='../images/beer/pint-1-3.PNG'/>`;
+    }else if((srm >= 4) && (srm <=5)){
+        indicadorColor.innerHTML = `<img src='../images/beer/pint-4-5.PNG'/>`;
+    }else if((srm >= 6) && (srm <=7)){
+        indicadorColor.innerHTML = `<img src='../images/beer/pint-6-7.PNG'/>`;
+    }else if((srm >= 8) && (srm <=9)){
+        indicadorColor.innerHTML = `<img src='../images/beer/pint-8-9.PNG'/>`;
+    }else if((srm >= 10) && (srm <=12)){
+        indicadorColor.innerHTML = `<img src='../images/beer/pint-10-12.PNG'/>`;
+    }else if((srm >= 13) && (srm <=16)){
+        indicadorColor.innerHTML = `<img src='../images/beer/pint-13-16.PNG'/>`;
+    }else if((srm >= 17) && (srm <=20)){
+        indicadorColor.innerHTML = `<img src='../images/beer/pint-17-20.PNG'/>`;
+    }else if((srm >= 21) && (srm <=25)){
+        indicadorColor.innerHTML = `<img src='../images/beer/pint-21-25.PNG'/>`;
+    }else if((srm >= 26) && (srm <=30)){
+        indicadorColor.innerHTML = `<img src='../images/beer/pint-26-30.PNG'/>`;
+    }else if((srm >= 31) && (srm <=35)){
+        indicadorColor.innerHTML = `<img src='../images/beer/pint-31-35.PNG'/>`;
+    }else if((srm >= 36) && (srm <=39)){
+        indicadorColor.innerHTML = `<img src='../images/beer/pint-36-39.PNG'/>`;
+    }else if((srm >= 40) && (srm <=50)){
+        indicadorColor.innerHTML = `<img src='../images/beer/pint-40-50.PNG'/>`;
+    }else if(srm > 50){
+        indicadorColor.innerHTML = `<img src='../images/beer/pint+50.PNG'/>`;
+    }
+
+
+    const introducirColor = document.querySelector(".color");
+    introducirColor.textContent = srm;
+
+    const introducirOg = document.querySelector(".og");
+    introducirOg.textContent = arrayDensidad;
+
+    const introducirFg = document.querySelector(".fg");
+    introducirFg.textContent = densidadFinal;
+
+    const introducirAbv = document.querySelector(".abv");
+    introducirAbv.textContent = abvString;
+
+    const introducirIbu = document.querySelector(".ibu");
+    introducirIbu.textContent = arrayIbu;
+
+
+
+
+
+    let barraOg = (((arrayDensidad - 1) * 1000) / 200)*100;
+
+    const indicadorOg = document.querySelector(".indicador-og");
+    indicadorOg.style.width = `${barraOg}%`;
+    indicadorOg.style.height = "1.3rem";
+    indicadorOg.style.borderRadius = "0.5rem";
+    indicadorOg.style.setProperty("background-color", "green");
+
+
+
+    let barraFg = (((densidadFinal - 1) * 1000) / (200 * (1 - levaduraAtenuacion))) * 100;
+    const indicadorFg = document.querySelector(".indicador-fg");
+    indicadorFg.style.width = `${barraFg}%`;
+    indicadorFg.style.height = "1.3rem";
+    indicadorFg.style.borderRadius = "0.5rem";
+    indicadorFg.style.setProperty("background-color", "red");
+
+
+
+    let barraAbv = (abv / ((1.2 - (((200*(1-levaduraAtenuacion))/1000)+1)) * 131.25)) * 100;
+    const indicadorAbv = document.querySelector(".indicador-abv");
+    indicadorAbv.style.width = `${barraAbv}%`;
+    indicadorAbv.style.height = "1.3rem";
+    indicadorAbv.style.borderRadius = "0.5rem";
+    indicadorAbv.style.setProperty("background-color", "lightblue");
+
+
+    const indicadorIbu = document.querySelector(".indicador-ibu");
+    let balance = arrayIbu / ((arrayDensidad - 1)*1000);
+    
+    if((balance >= 0.1) && (balance <=0.25)){
+        indicadorIbu.innerHTML = `<img src="../images/hops/hop1.png" alt="">`;
+    }else if((balance > 0.25) && (balance <=0.5)){
+        indicadorIbu.innerHTML = `<img src="../images/hops/hop2.png" alt="">`;
+    }else if((balance > 0.5) && (balance <=0.75)){
+        indicadorIbu.innerHTML = `<img src="../images/hops/hop3.png" alt="">`;
+    }else if((balance > 0.75) && (balance <=1)){
+        indicadorIbu.innerHTML = `<img src="../images/hops/hop4.png" alt="">`;
+    }else if(balance >1){
+        indicadorIbu.innerHTML = `<img src="../images/hops/hop5.png" alt="">`;
+    }
+
+
+
+
+    // 0.1 y 0.25
+    // 0.25 a 0.50
+    // 0.5 a 0.75
+    // 0.75 a 1
+    // >1
+
+
 
 }
 
+// (DI - DF) *131.25
 
+// let pepe = 5;
+// let pipo = [1, 2, 3];
+// let yuno = [4, 5, 6];
+// let colita = [];
+// let pura = 2;
+
+// for(let i=0; i<pipo.length; i+=1){
+//     colita.push((pipo[i] * yuno[i] * pepe) / pura);
+//     console.log(colita)
+// }
 
 
 
