@@ -9,8 +9,18 @@ const batch = document.querySelector(".batch");
 batch.addEventListener("change", (e)=>{
     if(isNaN(e.target.value)){        
         batchContainer = 0;
+        Swal.fire({
+            title: 'Por favor ingresar la cantidad de litros a producir',
+            showClass: {
+              popup: 'animate__animated animate__fadeInDown'
+            },
+            hideClass: {
+              popup: 'animate__animated animate__fadeOutUp'
+            }
+          })
     }else{
         batchContainer = parseInt(e.target.value);
+        
     }
     console.log(batchContainer);
 })
@@ -22,8 +32,28 @@ const eficiencia = document.querySelector(".eficiencia");
 eficiencia.addEventListener("change", (e)=>{
     if(isNaN(e.target.value)){        
         eficienciaContainer = 0;
-    }else{
+        Swal.fire({
+            title: 'Por favor ingresar un número entre 0 y 1 (se recomienda entre 0.7 y 0.85)',
+            showClass: {
+              popup: 'animate__animated animate__fadeInDown'
+            },
+            hideClass: {
+              popup: 'animate__animated animate__fadeOutUp'
+            }
+          })
+    }else if((e.target.value>0) && (e.target.value<=1)){
         eficienciaContainer = parseFloat(e.target.value);
+    }else{
+        eficienciaContainer = 0;
+        Swal.fire({
+            title: 'Por favor ingresar un número entre 0 y 1 (se recomienda entre 0.7 y 0.85)',
+            showClass: {
+              popup: 'animate__animated animate__fadeInDown'
+            },
+            hideClass: {
+              popup: 'animate__animated animate__fadeOutUp'
+            }
+          })
     }
     console.log(eficienciaContainer);
 })
@@ -88,7 +118,7 @@ listadoFerm.addEventListener("change", (e)=>{
 let kilosLenght = 1;
 let colorLenght = 1;
 let extractoLenght = 1;
-
+let ArrayKilosAdicionales;
 
 
 // creo la funcion que incorpora lineas de granos en el browser//
@@ -164,29 +194,41 @@ function agregarGranos(){
 
     //----Codigo para capturar los kilos de las lineas de fermentables agregadas con boton----//
 
-    const ArrayKilosAdicionales = document.querySelectorAll(".kilos-adicionales") ;
+    ArrayKilosAdicionales = document.querySelectorAll(".kilos-adicionales") ;
     ArrayKilosAdicionales.forEach(input => input.addEventListener("change", (e)=>{
         let existe = arrayKilos.some(kilo => kilo.kiloId === e.target.id);
         console.log(existe);
-        if(existe){
-            arrayKilos = arrayKilos.map(kilo => {
-                if(kilo.kiloId === e.target.id){
-                    return{
-                        kiloId: e.target.id,
-                        valor: parseInt(e.target.value)
-                    }
-                }else{
-                    return kilo;
+        if(isNaN(e.target.value)){
+            Swal.fire({
+                title: 'Por favor ingresar un número entero',
+                showClass: {
+                  popup: 'animate__animated animate__fadeInDown'
+                },
+                hideClass: {
+                  popup: 'animate__animated animate__fadeOutUp'
                 }
             })
-            console.log(arrayKilos);
-
         }else{
-            arrayKilos.push({
-                kiloId: e.target.id,
-                valor: parseInt(e.target.value),
-            })
-            console.log(arrayKilos);
+            if(existe){
+                arrayKilos = arrayKilos.map(kilo => {
+                    if(kilo.kiloId === e.target.id){
+                        return{
+                            kiloId: e.target.id,
+                            valor: parseInt(e.target.value)
+                        }
+                    }else{
+                        return kilo;
+                    }
+                })
+                console.log(arrayKilos);
+    
+            }else{
+                arrayKilos.push({
+                    kiloId: e.target.id,
+                    valor: parseInt(e.target.value),
+                })
+                console.log(arrayKilos);
+            }
         }
         sumarkilos();
     }))
@@ -206,27 +248,39 @@ const kilos = document.querySelector(".kilos");
 kilos.addEventListener("change", (e)=>{
     let existe = arrayKilos.some(kilo => kilo.kiloId === e.target.id);
     console.log(existe);
-    if(existe){
-        arrayKilos = arrayKilos.map(kilo => {
-            if(kilo.kiloId === e.target.id){
-                return{
-                    kiloId: e.target.id,
-                    valor: parseInt(e.target.value)
-                }
-            }else{
-                return kilo;
+    if(isNaN(e.target.value)){
+        Swal.fire({
+            title: 'Por favor ingresar un número entero',
+            showClass: {
+              popup: 'animate__animated animate__fadeInDown'
+            },
+            hideClass: {
+              popup: 'animate__animated animate__fadeOutUp'
             }
         })
-        console.log(arrayKilos);
-
     }else{
-        arrayKilos.push({
-            kiloId: e.target.id,
-            valor: parseInt(e.target.value),
-        })
-        console.log(arrayKilos);
+        if(existe){
+            arrayKilos = arrayKilos.map(kilo => {
+                if(kilo.kiloId === e.target.id){
+                    return{
+                        kiloId: e.target.id,
+                        valor: parseInt(e.target.value)
+                    }
+                }else{
+                    return kilo;
+                }
+            })
+            console.log(arrayKilos);
+    
+        }else{
+            arrayKilos.push({
+                kiloId: e.target.id,
+                valor: parseInt(e.target.value),
+            })
+            console.log(arrayKilos);
+        }
+        sumarkilos();
     }
-    sumarkilos();
 })
 
 
@@ -299,7 +353,7 @@ listadoLupulo.addEventListener("change", (e)=>{
 })
 
 
-
+let gramosContainerBis;
 // creo la funcion que incorpora lineas de lupulos en el browser//
 let lupuloLenght = 1;
 function agregarLupulos(){
@@ -353,7 +407,7 @@ function agregarLupulos(){
 
     const gramosContainerAdicional = document.querySelector(".gramos-container__adicional");
     const gramosContainerAdicionalInput = document.createElement("input");
-    gramosContainerAdicionalInput.classList.add("gramos-container", "mb-2", "text-center");
+    gramosContainerAdicionalInput.classList.add("gramos-container", "mb-2", "text-center", "gramos-container-bis");
     gramosContainerAdicionalInput.setAttribute("id", `hop${lupuloLenght+=1}`);
     gramosContainerAdicional.appendChild(gramosContainerAdicionalInput);
 
@@ -376,29 +430,41 @@ function agregarLupulos(){
     //----Codigo para capturar los gramos de las lineas de lupulos agregadas con boton----//
 
 
-    const gramosContainer = document.querySelectorAll(".gramos-container");
-    gramosContainer.forEach(input => input.addEventListener("change", (e)=>{
+    gramosContainerBis = document.querySelectorAll(".gramos-container-bis");
+    gramosContainerBis.forEach(input => input.addEventListener("change", (e)=>{
         let existe = arrayGramos.some(gramo => gramo.gramoId === e.target.id);
         console.log(existe);
-        if(existe){
-            arrayGramos = arrayGramos.map(gramo => {
-                if(gramo.gramoId == e.target.id){
-                    return {
-                        gramoId: e.target.id,
-                        valor: parseInt(e.target.value),
-                    }    
-                }else{
-                    return gramo;
+        if(isNaN(e.target.value)){
+            Swal.fire({
+                title: 'Por favor ingresar un número entero',
+                showClass: {
+                  popup: 'animate__animated animate__fadeInDown'
+                },
+                hideClass: {
+                  popup: 'animate__animated animate__fadeOutUp'
                 }
             })
-            console.log(arrayGramos);
-
         }else{
-            arrayGramos.push({
-                gramoId: e.target.id,
-                valor: parseInt(e.target.value),
-            })
-            console.log(arrayGramos);
+            if(existe){
+                arrayGramos = arrayGramos.map(gramo => {
+                    if(gramo.gramoId == e.target.id){
+                        return {
+                            gramoId: e.target.id,
+                            valor: parseInt(e.target.value),
+                        }    
+                    }else{
+                        return gramo;
+                    }
+                })
+                console.log(arrayGramos);
+    
+            }else{
+                arrayGramos.push({
+                    gramoId: e.target.id,
+                    valor: parseInt(e.target.value),
+                })
+                console.log(arrayGramos);
+            }
         }
         sumarGramos();
 
@@ -416,29 +482,41 @@ btnLupulo.addEventListener("click", agregarLupulos);
 
 
 let arrayGramos = [];
-const gramosContainer = document.querySelector(".gramos-container");
+gramosContainer = document.querySelector(".gramos-container");
 gramosContainer.addEventListener("change", (e)=>{
     let existe = arrayGramos.some(gramo => gramo.gramoId === e.target.id);
     console.log(existe);
-    if(existe){
-        arrayGramos = arrayGramos.map(gramo => {
-            if(gramo.gramoId == e.target.id){
-                return {
-                    gramoId: e.target.id,
-                    valor: parseInt(e.target.value),
-                }   
-            }else{
-                return gramo;
+    if(isNaN(e.target.value)){
+        Swal.fire({
+            title: 'Por favor ingresar un número entero',
+            showClass: {
+              popup: 'animate__animated animate__fadeInDown'
+            },
+            hideClass: {
+              popup: 'animate__animated animate__fadeOutUp'
             }
         })
-        console.log(arrayGramos);
-
     }else{
-        arrayGramos.push({
-            gramoId: e.target.id,
-            valor: parseInt(e.target.value),
-        })
-        console.log(arrayGramos);
+        if(existe){
+            arrayGramos = arrayGramos.map(gramo => {
+                if(gramo.gramoId == e.target.id){
+                    return {
+                        gramoId: e.target.id,
+                        valor: parseInt(e.target.value),
+                    }   
+                }else{
+                    return gramo;
+                }
+            })
+            console.log(arrayGramos);
+    
+        }else{
+            arrayGramos.push({
+                gramoId: e.target.id,
+                valor: parseInt(e.target.value),
+            })
+            console.log(arrayGramos);
+        }
     }
     sumarGramos();
 })
@@ -504,7 +582,20 @@ listadoLevadura.addEventListener("change", (e)=>{
     }
 })
 
-
+const levaGrs = document.querySelector(".leva-grs");
+levaGrs.addEventListener("change", (e)=>{
+    if(isNaN(e.target.value)){
+        Swal.fire({
+            title: 'Por favor ingresar la cantidad de gramos. Se recomienda una tasa de inoculación de 0.7 a 1 gramos por litro',
+            showClass: {
+              popup: 'animate__animated animate__fadeInDown'
+            },
+            hideClass: {
+              popup: 'animate__animated animate__fadeOutUp'
+            }
+        })
+    }
+})
 
 
 
@@ -758,28 +849,121 @@ function calcularIndicadores(){
 
 
 
-    // 0.1 y 0.25
-    // 0.25 a 0.50
-    // 0.5 a 0.75
-    // 0.75 a 1
-    // >1
-
+   
 
 
 }
 
-// (DI - DF) *131.25
 
-// let pepe = 5;
-// let pipo = [1, 2, 3];
-// let yuno = [4, 5, 6];
-// let colita = [];
-// let pura = 2;
 
-// for(let i=0; i<pipo.length; i+=1){
-//     colita.push((pipo[i] * yuno[i] * pepe) / pura);
-//     console.log(colita)
-// }
+function limpiarCampos (){
+
+    //-------------------------------------------------//
+    //codigos para limpiar campos en batch y eficiencia//
+    //-------------------------------------------------//
+
+    batch.value = "";
+    eficiencia.value = "";    
+
+    //--------------------------------------------//
+    //codigos para limpiar campos en fermentables//
+    //------------------------------------------//
+    totalKilos.value = "";
+    arrayKilosLimpieza = arrayKilos.splice(0);
+
+
+    //primera linea de fermentables//    
+    kilos.value = "";
+    listadoFerm.value = "Seleccione un grano";
+    extractoListado.value = "";
+    srmListado.value = "";
+
+    //lineas de fermentables agregadas con boton//
+    
+    if( ArrayKilosAdicionales != undefined){
+        ArrayKilosAdicionales.forEach(kilos => {
+            kilos.value = "";
+        })    
+    }
+    
+    const fermInputLimpieza = document.querySelectorAll(".ferm-input");
+    if(fermInputLimpieza != undefined){
+        fermInputLimpieza.forEach(ferm => {
+            ferm.value = "Seleccione un grano";
+        })    
+    }
+    const extractoNodeListLimpieza = document.querySelectorAll(".extracto-node");
+    if(extractoNodeListLimpieza != undefined){
+        extractoNodeListLimpieza.forEach(ext => {
+            ext.value = "";
+        })
+    }
+
+    const srmNodeListLimpieza = document.querySelectorAll(".srm-node");
+    if(srmNodeListLimpieza != undefined){
+        srmNodeListLimpieza.forEach(srm => {
+            srm.value = "";
+        })
+    }
+    //---------------------------------------//
+    //codigos para limpiar campos en lupulos//
+    //-------------------------------------//
+
+    totalGramos.value = "";
+    arrayGramosLimpieza = arrayGramos.splice(0);
+
+    //primera linea de lupulos//    
+
+    listadoLupulo.value = "Seleccione lúpulo";
+    gramosContainer.value = "";
+    alfa.value = "";
+    const tiempoContainerLimpieza = document.querySelector(".tiempo-container")
+    tiempoContainerLimpieza.value = "Minutos de hervor";
+
+    //lineas de lupulos agregadas con boton//
+        
+    if(gramosContainerBis != undefined){
+        gramosContainerBis.forEach(gramos => {
+            gramos.value = "";
+        })    
+    }
+
+    const lupuloInputLimpieza = document.querySelectorAll(".lupulo-input");
+    if(lupuloInputLimpieza != undefined){
+        lupuloInputLimpieza.forEach(lupulo => {
+            lupulo.value = "Seleccione lúpulo";
+        })    
+    }
+    const alfaNodeListLimpieza = document.querySelectorAll(".alfa-node");
+    if(alfaNodeListLimpieza != undefined){
+        alfaNodeListLimpieza.forEach(alfa => {
+            alfa.value = "";
+        })
+    }
+    const tiempoNodeListLimpieza = document.querySelectorAll(".tiempo-node");
+    if(tiempoNodeListLimpieza != undefined){
+        tiempoNodeListLimpieza.forEach(tiempo => {
+            tiempo.value = "Minutos de hervor";
+        })    
+    }
+    
+    //----------------------------------------//
+    //codigos para limpiar campos en levadura//
+    //--------------------------------------//
+
+    listadoLevadura.value = "Seleccione levadura";
+    atenuacion.value = "";
+    levaGrs.value = "";
+
+}
+
+
+
+const limpiar = document.querySelector(".limpiar");
+limpiar.addEventListener("click", limpiarCampos);
+
+
+
 
 
 
