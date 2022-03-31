@@ -757,31 +757,31 @@ function calcularIndicadores(){
     const indicadorColor = document.querySelector(".indicador-color"); 
 
     if((srm >= 1) && (srm <=3)){
-        indicadorColor.innerHTML = `<img src='../images/beer/pint-1-3.PNG'/>`;
+        indicadorColor.innerHTML = `<img src='../images/beer/pint-1-3.png'/>`;
     }else if((srm >= 4) && (srm <=5)){
-        indicadorColor.innerHTML = `<img src='../images/beer/pint-4-5.PNG'/>`;
+        indicadorColor.innerHTML = `<img src='../images/beer/pint-4-5.png'/>`;
     }else if((srm >= 6) && (srm <=7)){
-        indicadorColor.innerHTML = `<img src='../images/beer/pint-6-7.PNG'/>`;
+        indicadorColor.innerHTML = `<img src='../images/beer/pint-6-7.png'/>`;
     }else if((srm >= 8) && (srm <=9)){
-        indicadorColor.innerHTML = `<img src='../images/beer/pint-8-9.PNG'/>`;
+        indicadorColor.innerHTML = `<img src='../images/beer/pint-8-9.png'/>`;
     }else if((srm >= 10) && (srm <=12)){
-        indicadorColor.innerHTML = `<img src='../images/beer/pint-10-12.PNG'/>`;
+        indicadorColor.innerHTML = `<img src='../images/beer/pint-10-12.png'/>`;
     }else if((srm >= 13) && (srm <=16)){
-        indicadorColor.innerHTML = `<img src='../images/beer/pint-13-16.PNG'/>`;
+        indicadorColor.innerHTML = `<img src='../images/beer/pint-13-16.png'/>`;
     }else if((srm >= 17) && (srm <=20)){
-        indicadorColor.innerHTML = `<img src='../images/beer/pint-17-20.PNG'/>`;
+        indicadorColor.innerHTML = `<img src='../images/beer/pint-17-20.png'/>`;
     }else if((srm >= 21) && (srm <=25)){
-        indicadorColor.innerHTML = `<img src='../images/beer/pint-21-25.PNG'/>`;
+        indicadorColor.innerHTML = `<img src='../images/beer/pint-21-25.png'/>`;
     }else if((srm >= 26) && (srm <=30)){
-        indicadorColor.innerHTML = `<img src='../images/beer/pint-26-30.PNG'/>`;
+        indicadorColor.innerHTML = `<img src='../images/beer/pint-26-30.png'/>`;
     }else if((srm >= 31) && (srm <=35)){
-        indicadorColor.innerHTML = `<img src='../images/beer/pint-31-35.PNG'/>`;
+        indicadorColor.innerHTML = `<img src='../images/beer/pint-31-35.png'/>`;
     }else if((srm >= 36) && (srm <=39)){
-        indicadorColor.innerHTML = `<img src='../images/beer/pint-36-39.PNG'/>`;
+        indicadorColor.innerHTML = `<img src='../images/beer/pint-36-39.png'/>`;
     }else if((srm >= 40) && (srm <=50)){
-        indicadorColor.innerHTML = `<img src='../images/beer/pint-40-50.PNG'/>`;
+        indicadorColor.innerHTML = `<img src='../images/beer/pint-40-50.png'/>`;
     }else if(srm > 50){
-        indicadorColor.innerHTML = `<img src='../images/beer/pint+50.PNG'/>`;
+        indicadorColor.innerHTML = `<img src='../images/beer/pint+50.png'/>`;
     }
 
 
