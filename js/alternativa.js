@@ -12,12 +12,12 @@ batch.addEventListener("change", (e)=>{
         Swal.fire({
             title: 'Por favor ingresar la cantidad de litros a producir',
             showClass: {
-              popup: 'animate__animated animate__fadeInDown'
+                popup: 'animate__animated animate__fadeInDown'
             },
             hideClass: {
-              popup: 'animate__animated animate__fadeOutUp'
+                popup: 'animate__animated animate__fadeOutUp'
             }
-          })
+        })
     }else{
         batchContainer = parseInt(e.target.value);
         
@@ -35,12 +35,12 @@ eficiencia.addEventListener("change", (e)=>{
         Swal.fire({
             title: 'Por favor ingresar un número entre 0 y 1 (se recomienda entre 0.7 y 0.85)',
             showClass: {
-              popup: 'animate__animated animate__fadeInDown'
+                popup: 'animate__animated animate__fadeInDown'
             },
             hideClass: {
-              popup: 'animate__animated animate__fadeOutUp'
+                popup: 'animate__animated animate__fadeOutUp'
             }
-          })
+        })
     }else if((e.target.value>0) && (e.target.value<=1)){
         eficienciaContainer = parseFloat(e.target.value);
     }else{
@@ -48,12 +48,12 @@ eficiencia.addEventListener("change", (e)=>{
         Swal.fire({
             title: 'Por favor ingresar un número entre 0 y 1 (se recomienda entre 0.7 y 0.85)',
             showClass: {
-              popup: 'animate__animated animate__fadeInDown'
+                popup: 'animate__animated animate__fadeInDown'
             },
             hideClass: {
-              popup: 'animate__animated animate__fadeOutUp'
+                popup: 'animate__animated animate__fadeOutUp'
             }
-          })
+        })
     }
     console.log(eficienciaContainer);
 })
@@ -757,31 +757,31 @@ function calcularIndicadores(){
     const indicadorColor = document.querySelector(".indicador-color"); 
 
     if((srm >= 1) && (srm <=3)){
-        indicadorColor.innerHTML = `<img src='../images/beer/pint-1-3.png'/>`;
+        indicadorColor.innerHTML = `<img class="img-beer" src='../images/beer/pint-1-3.png'/>`;
     }else if((srm >= 4) && (srm <=5)){
-        indicadorColor.innerHTML = `<img src='../images/beer/pint-4-5.png'/>`;
+        indicadorColor.innerHTML = `<img class="img-beer" src='../images/beer/pint-4-5.png'/>`;
     }else if((srm >= 6) && (srm <=7)){
-        indicadorColor.innerHTML = `<img src='../images/beer/pint-6-7.png'/>`;
+        indicadorColor.innerHTML = `<img class="img-beer" src='../images/beer/pint-6-7.png'/>`;
     }else if((srm >= 8) && (srm <=9)){
-        indicadorColor.innerHTML = `<img src='../images/beer/pint-8-9.png'/>`;
+        indicadorColor.innerHTML = `<img class="img-beer" src='../images/beer/pint-8-9.png'/>`;
     }else if((srm >= 10) && (srm <=12)){
-        indicadorColor.innerHTML = `<img src='../images/beer/pint-10-12.png'/>`;
+        indicadorColor.innerHTML = `<img class="img-beer" src='../images/beer/pint-10-12.png'/>`;
     }else if((srm >= 13) && (srm <=16)){
-        indicadorColor.innerHTML = `<img src='../images/beer/pint-13-16.png'/>`;
+        indicadorColor.innerHTML = `<img class="img-beer" src='../images/beer/pint-13-16.png'/>`;
     }else if((srm >= 17) && (srm <=20)){
-        indicadorColor.innerHTML = `<img src='../images/beer/pint-17-20.png'/>`;
+        indicadorColor.innerHTML = `<img class="img-beer" src='../images/beer/pint-17-20.png'/>`;
     }else if((srm >= 21) && (srm <=25)){
-        indicadorColor.innerHTML = `<img src='../images/beer/pint-21-25.png'/>`;
+        indicadorColor.innerHTML = `<img class="img-beer" src='../images/beer/pint-21-25.png'/>`;
     }else if((srm >= 26) && (srm <=30)){
-        indicadorColor.innerHTML = `<img src='../images/beer/pint-26-30.png'/>`;
+        indicadorColor.innerHTML = `<img class="img-beer" src='../images/beer/pint-26-30.png'/>`;
     }else if((srm >= 31) && (srm <=35)){
-        indicadorColor.innerHTML = `<img src='../images/beer/pint-31-35.png'/>`;
+        indicadorColor.innerHTML = `<img class="img-beer" src='../images/beer/pint-31-35.png'/>`;
     }else if((srm >= 36) && (srm <=39)){
-        indicadorColor.innerHTML = `<img src='../images/beer/pint-36-39.png'/>`;
+        indicadorColor.innerHTML = `<img class="img-beer" src='../images/beer/pint-36-39.png'/>`;
     }else if((srm >= 40) && (srm <=50)){
-        indicadorColor.innerHTML = `<img src='../images/beer/pint-40-50.png'/>`;
+        indicadorColor.innerHTML = `<img class="img-beer" src='../images/beer/pint-40-50.png'/>`;
     }else if(srm > 50){
-        indicadorColor.innerHTML = `<img src='../images/beer/pint+50.png'/>`;
+        indicadorColor.innerHTML = `<img class="img-beer" src='../images/beer/pint+50.png'/>`;
     }
 
 
@@ -835,23 +835,16 @@ function calcularIndicadores(){
     let balance = arrayIbu / ((arrayDensidad - 1)*1000);
     
     if((balance >= 0.1) && (balance <=0.25)){
-        indicadorIbu.innerHTML = `<img src="../images/hops/hop1.png" alt="">`;
+        indicadorIbu.innerHTML = `<img class="img-hop" src="../images/hops/hop1.png" alt="">`;
     }else if((balance > 0.25) && (balance <=0.5)){
-        indicadorIbu.innerHTML = `<img src="../images/hops/hop2.png" alt="">`;
+        indicadorIbu.innerHTML = `<img class="img-hop" src="../images/hops/hop2.png" alt="">`;
     }else if((balance > 0.5) && (balance <=0.75)){
-        indicadorIbu.innerHTML = `<img src="../images/hops/hop3.png" alt="">`;
+        indicadorIbu.innerHTML = `<img class="img-hop" src="../images/hops/hop3.png" alt="">`;
     }else if((balance > 0.75) && (balance <=1)){
-        indicadorIbu.innerHTML = `<img src="../images/hops/hop4.png" alt="">`;
+        indicadorIbu.innerHTML = `<img class="img-hop" src="../images/hops/hop4.png" alt="">`;
     }else if(balance >1){
-        indicadorIbu.innerHTML = `<img src="../images/hops/hop5.png" alt="">`;
+        indicadorIbu.innerHTML = `<img class="img-hop" src="../images/hops/hop5.png" alt="">`;
     }
-
-
-
-
-   
-
-
 }
 
 
@@ -955,12 +948,52 @@ function limpiarCampos (){
     atenuacion.value = "";
     levaGrs.value = "";
 
+    const introducirColor = document.querySelector(".color");
+    introducirColor.textContent = "";
+    const indicadorColor = document.querySelector(".indicador-color");
+    const beerImg = document.querySelector(".img-beer");
+    indicadorColor.removeChild(beerImg);
+
+    const introducirOg = document.querySelector(".og");
+    introducirOg.textContent = "";
+    const removeOg = document.querySelector(".remove-og");
+    const estiloOg = document.querySelector(".indicador-og");
+    removeOg.removeChild(estiloOg);
+
+    const introducirFg = document.querySelector(".fg");
+    introducirFg.textContent = "";
+    const removeFg = document.querySelector(".remove-fg");
+    const estiloFg = document.querySelector(".indicador-fg");
+    removeFg.removeChild(estiloFg);
+
+    const introducirAbv = document.querySelector(".abv");
+    introducirAbv.textContent = "";
+    const removeAbv = document.querySelector(".remove-abv");
+    const estiloAbv = document.querySelector(".indicador-abv");
+    removeAbv.removeChild(estiloAbv);
+
+    const introducirIbu = document.querySelector(".ibu");
+    introducirIbu.textContent = "";
+
+    const indicadorIbu = document.querySelector(".indicador-ibu");
+    const hopImg = document.querySelector(".img-hop");
+    indicadorIbu.removeChild(hopImg);
+
+    
+
+
+
 }
 
 
 
 const limpiar = document.querySelector(".limpiar");
 limpiar.addEventListener("click", limpiarCampos);
+
+
+
+
+
 
 
 
